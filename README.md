@@ -1,0 +1,2 @@
+# Auction
+Django Auction site
