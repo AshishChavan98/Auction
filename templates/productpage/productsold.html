@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+        {% load static %}
+        <title>
+                Product page
+            </title>
+            <link rel="stylesheet" type="text/css" href="{% static 'productpage/css/product.css' %}">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> 
+            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+        
+
+<body>
+        
+        <nav class="navbar dark-light-blue justify-content-center" >
+                <!-- Navbar content -->
+                
+                <ul class="nav navbar-nav ml-auto">
+                    
+                    <li><h2>Auction site</h2></li>
+                    
+                </ul>
+                <ul class="nav navbar-nav ml-auto">
+                        <li><h3> {{ user.username}}   <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a></h3></li>
+                        
+                    </ul>
+                    
+                
+        </nav>
+        
+        <div class="container">
+                        {% if user.is_authenticated %}
+                        
+                        <div class="container-fluid" style="padding:30px">
+                                <div class="row row-offcanvas row-offcanvas-right">
+                                  <div class="col-xs-12 col-sm-9 col-sm-push-3">
+                                  <div class="jumbotron">
+                                      <h1>Sold Products</h1>
+                                      <p>These are your current product in ongoing auction.</p>
+                                    </div>
+                                    <div  class="row border border-success rounded" id="products-list">
+                                            <div  class="col-sm-4">
+                                                    <div class="container" id="imageblock">
+                                                        </div>
+                                                  </div>
+                                                  <div  class="col-sm-8">
+                                                        <div class="container content-info" id="contents">
+                                                            </div>
+                                                  </div>
+                                      </div><!--/row-->
+                                  </div><!--/.col-xs-12.col-sm-9-->
+                          
+                                  <div class="col-xs-6 col-sm-3 col-sm-pull-9 sidebar-offcanvas" id="sidebar">
+                                    <div class="list-group">
+                                      <a href="{% url 'product' %}" class="list-group-item">Ongoing</a>
+                                      <a href="{% url 'product_bought' %}" class="list-group-item">Bought</a>
+                                      <a href="#" class="list-group-item active">Sold</a>
+                                      <a href="{% url 'my_product' %}" class="list-group-item">My Product</a>
+                                      <a href="{% url 'upload_product' %}" class="list-group-item">Register Product</a>
+                                    </div>
+                                  </div><!--/.sidebar-offcanvas-->
+                                </div><!--/row-->
+                          
+                                <hr>
+                          
+
+
+
+
+
+
+                      {% else %}
+                        <p>You are not logged in</p>
+                        <a class ="btn btn-success" href="{% url 'login' %}">login</a>
+                      {% endif %}
+
+
+                    
+                      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            
+                      
+                      
+                     
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script>
+            var data,ownerName;
+var users,currentUser;
+//get all user information 
+currentUser = {{ user.id }}
+$.ajax({url: "/product/rest/users/?format=json", success: function(result){
+    users= result;
+    console.log(result);
+    
+    
+
+ },complete:function()
+ {
+    //do nothing 
+ },
+ 
+ });
+    
+    
+   
+//get products  
+function getproductinfo()
+{
+    $.ajax({url: "/product/rest/products/?id=&itemname=&owner="+currentUser+"&status=1&buyer=", success: function(result){
+        data= result;
+        console.log(result);
+        $('#users').html('');
+        
+
+    },complete:function()
+    {
+        refresh();
+        printResult();
+        if(data.length==0)
+        {
+            $("#contents").html("")
+            $("#contents").append('There are currently no product sold');
+        }
+    },
+    
+    });
+}
+
+
+//function to change owner from url to name
+function refresh()
+{
+   for(var key in data)
+   {
+        for(var x in users)
+        {
+            if(data[key].owner == users[x].url)
+            {
+                data[key].owner = users[x].username
+            }
+        } 
+   }
+    
+}
+//Append products to html
+function printResult()
+{
+
+    $('#contents').html('');
+    $('#imageblock').html('');
+    
+    for(var key in data)
+    {
+          
+
+         $("#contents").append('Item Name:'+data[key].itemname+'<div>Description:'+data[key].description+'</div><div>Initial bid :'+data[key].initialbid+'</div><div>'+data[key].createddate+'</div><div>Buyer:'+data[key].buyer+'</div><div>Final Bid : '+data[key].bid+'</div>');
+
+$('#imageblock').append('<img class="img-fluid justify-content-center" style="padding:3px" src="'+data[0].image+'">');
+    }
+}
+        getproductinfo();
+        setInterval(getproductinfo, 5000);
+
+        </script>
+
+    </body>        
+</html>

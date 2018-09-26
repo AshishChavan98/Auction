@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+        <title>
+                Product page
+        </title>
+        <meta charset="UTF-8">
+        {% load static %}
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+            <link rel="stylesheet" type="text/css" href="{% static 'productpage/css/product.css' %}">
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+            <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet"> 
+            <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+            </head>           
+<body>
+        
+    <nav class="navbar dark-light-blue justify-content-center" >
+        <!-- Navbar content -->
+        
+        <ul class="nav navbar-nav ml-auto">
+            
+            <li><h2>Auction site</h2></li>
+            
+        </ul>
+        <ul class="nav navbar-nav ml-auto">
+                <li><h3> {{ user.username}}   <a class="btn btn-danger" href="{% url 'logout' %}">Logout</a></h3></li>
+                
+            </ul>
+            
+        
+</nav>
+        <div class="container-fluid content">
+            <div class="row border">
+              <div class="col-sm-6 colbig">
+                <div class="container" id="imageblock">
+                </div>
+
+              </div>
+              <div class="col-sm-6  colbig">
+                  <div class="container content-info" id="contents">
+                  </div>
+                  <div id="buyerControls " class="container" style="padding-top:10px">
+                    <div class="row">
+                        
+                            <div class="col-sm-6">
+                        <form>
+                          {% csrf_token %}                       
+                           <input  id ="bidInput" type="text" class="form-control form-control">
+                        </form>
+
+                        </div>
+                        <div class="col-sm-6">
+                        <button id="bid" class="btn btn-primary">Bid</button>
+                    </div>
+                    </div>
+                  </div>
+
+                  <div id="ownerControls " class="container" style="padding-top:10px">
+                        
+                                        <button id="abort" class="btn btn-danger">Abort</button>
+
+                             <button id="final" class="btn btn-success">Final</button>
+                     </div>
+                </div>
+
+
+              </div>
+            </div>
+          </div> 
+          <script>
+            var users,currentUser,csrf_token;
+           {% if user.is_authenticated %}
+             currentUser = "{{user.username}}";
+           {% endif %}
+           console.log(currentUser);
+           var id={{ id }};
+           
+           csrfToken = "{{ csrf_token }}";
+           console.log("csrf token"+csrfToken);
+           </script>
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+            
+          <script src = "{% static 'productpage/js/product.js' %}"></script>
+          
+          
+        
+        
+    
+</body> 
+</html>
