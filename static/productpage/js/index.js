@@ -62,7 +62,7 @@ function refresh()
 function printResult()
 {
 
-    $('#product').html('');
+    $('#products-list').html('');
     for(var key in data)
     {
           

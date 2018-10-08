@@ -1,31 +1,31 @@
 $(document).ready(function(){
     var data;
-   
-    //get all user information 
+
+    //get all user information
     $.ajax({url: "/product/rest/users/?format=json", success: function(result){
         users= result;
         console.log(result);
-        
-        
+
+
 
      },complete:function()
      {
-        //do nothing 
+        //do nothing
      },
-     
+
      });
-        
-        
-       
-    //get products  
+
+
+
+    //get products
     console.log(id)
-    
+
     $("#load").click(function(){
         getproductinfo();
-    }); 
+    });
     $("#abort").click(function()
     {
-        var c = confirm("Abort will completly remove your product from database\nDo you want to continue?");    
+        var c = confirm("Abort will completly remove your product from database\nDo you want to continue?");
         if(c==true)
         {
             deleteproduct();
@@ -44,7 +44,7 @@ $(document).ready(function(){
             {
                 finalproduct();
             }
-            
+
         }
     });
 
@@ -54,7 +54,7 @@ $(document).ready(function(){
          var x={
             "status":1,
         }
-        
+
         var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value')
         $.ajax({
         type : "PATCH",
@@ -70,7 +70,7 @@ $(document).ready(function(){
         },
         success: function(){
             window.location.replace("/product/");
-        
+
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
         alert("some error " + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
@@ -95,7 +95,7 @@ $(document).ready(function(){
             },
             success: function(){
                 window.location.replace("/product/");
-            
+
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert("some error " + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
@@ -107,44 +107,44 @@ $(document).ready(function(){
         $.ajax({url: "/product/rest/products/?id="+id+"&itemname=&owner=&status=&buyer=", success: function(result){
             data=result;
             console.log(result);
-            
-            
+
+
 
         },complete:function()
         {
-            
+
             refresh();
             if(data[0].length==0)
             {
              window.location.replace("/product/");
-             
+
             }
             else if(data[0].status==1)
             {
              window.location.replace("/product/");
-             
+
             }
             printResult();
-          
+
         },
-        
+
         });
     }
-    
-    
+
+
     //function to change owner from url to name
     function refresh()
     {
-       
+
             for(var x in users)
             {
                 if(users[x].url.includes(data[0].owner))
                 {
                     data[0].owner = users[x].username
                  }
-            } 
-       
-        
+            }
+
+
     }
     //Append products to html
     function printResult()
@@ -158,13 +158,17 @@ $(document).ready(function(){
             $('#contents').html('');
             $('#imageblock').html('');
             console.log("button hide");
-           
+
             for(var key in data)
             {
                 $("#contents").append('<h1><b>'+data[key].itemname+'</h1> <div>Description:'+data[key].description+'</div><div>Initial bid :'+data[key].initialbid+'</div><div>'+data[key].createddate+'</div><div><h2>Current Bid : '+data[key].bid+'</h2></div>');
 
-                $('#imageblock').append('<img class="img-fluid justify-content-center" src="'+data[0].image+'">');
-                
+                $('#imageblock').append('<img style="max-height:500px;min-height:300px" class="img-fluid " src="'+data[0].image+'">');
+                  if(data[key].buyer != null)
+                {
+                    $("#contents").append('<div><b>Current Bidder</b> : '+data[key].buyer+'</div>');
+                }
+
             }
         }
         else
@@ -177,14 +181,19 @@ $(document).ready(function(){
             console.log("Second loop");
             for(var key in data)
             {
-                
+
                 $("#contents").append('<h1><b>'+data[key].itemname+'</b></h1> <div>Description:'+data[key].description+'</div><div>Initial bid :'+data[key].initialbid+'</div><div> Created date :'+data[key].createddate+'</div><div><h2>Current Bid : '+data[key].bid+'</h2></div>');
 
-                $('#imageblock').append('<img class="img-fluid img justify-content-center" src="'+data[0].image+'">');
+                $('#imageblock').append('<img class="img-fluid img justify-content-center"  src="'+data[0].image+'">');
+                 if(data[key].buyer != null)
+                {
+                    $("#contents").append('<div><b>Current Bidder</b> : '+data[key].buyer+'</div>');
+                }
+
             }
         }
     }
-
+    console.log(data);
     $('#bid').click(function(){
             getproductinfo();
             bidToProduct();
@@ -195,7 +204,7 @@ $(document).ready(function(){
 
     function bidToProduct()
     {
-        
+
         var bid = $('#bidInput').val()
         console.log(bid);
         if(bid<data[0].initialbid)
@@ -213,7 +222,7 @@ $(document).ready(function(){
                 "buyer":currentUser,
                 "status":0,
             }
-            
+
             var $crf_token = $('[name="csrfmiddlewaretoken"]').attr('value')
             $.ajax({
             type : "PATCH",
@@ -228,8 +237,8 @@ $(document).ready(function(){
             //content-type = application/x-www-form-urlencoded
             },
             success: function(){
-            
-            
+
+
             },
             error: function(XMLHttpRequest, textStatus, errorThrown) {
             alert("some error " + String(errorThrown) + String(textStatus) + String(XMLHttpRequest.responseText));
@@ -237,10 +246,10 @@ $(document).ready(function(){
             });
         }
     }
-   
+
     getproductinfo();
 
-    setInterval(getproductinfo, 3000);
-    
+    //setInterval(getproductinfo, 3000);
+
 
 });
