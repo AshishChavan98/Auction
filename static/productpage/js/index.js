@@ -2,6 +2,19 @@ $(document).ready(function(){
 var data,ownerName;
 var users,currentUser;
 //get all user information 
+var category="";
+var categoryList={
+    1:"",
+    2:"gadg",
+    3:"comp",
+    4:"anti",
+    5:"phon",
+    6:"misc",
+    
+};
+
+
+console.log(categoryList[1]);
 function getusers()
 {
 $.ajax({url: "rest/users/?format=json", success: function(result){
@@ -22,7 +35,8 @@ $.ajax({url: "rest/users/?format=json", success: function(result){
 //get products  
 function getproductinfo()
 {
-    $.ajax({url: "/product/rest/products/?id=&itemname=&owner=&status=0&buyer=", success: function(result){
+    console.log("category :",category);
+    $.ajax({url: "/product/rest/products/?id=&itemname=&owner=&status=0&buyer=&category="+category, success: function(result){
         data= result;
         console.log(result);
         $('#users').html('');
@@ -74,4 +88,16 @@ function printResult()
     getproductinfo();
     setInterval(getproductinfo, 5000);
     setInterval(getusers,15000);
+
+
+   //select category
+   $("#myselect").change(function(){
+
+    var selectedOption = $("option:selected").val();
+    //alert("You have selected the option - " + categoryList[selectedOption]);
+    category=categoryList[selectedOption];
+    console.log("category :",category);
+    getproductinfo();
+
+});
 });

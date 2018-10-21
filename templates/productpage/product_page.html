@@ -32,11 +32,48 @@
                         {% if user.is_authenticated %}
                         
                         <div class="container-fluid" style="padding:30px">
+                          <!--copied code-->
+                          Category:
+                          <!--
+                              <span  class="dropdown show">
+                              <a class="btn btn-primary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" value="0">
+                              All
+                              </a>
+                                
+                              <div  class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                              
+                              <a class="dropdown-item" href="#" value="1">Gadgets</a>
+                              <a class="dropdown-item" href="#" value="2">Computer</a>
+                              <a class="dropdown-item" href="#" value="3">Antique</a>
+                              <a class="dropdown-item" href="#" value="4">Phone</a>
+                              <a class="dropdown-item" href="#" value="5">misc</a>
+                            
+                              </div>
+                            -->
+                            
+                            <span class="dropdown show">
+                              <select id="myselect" class="btn" style="width:150px">
+                                 <span >
+                                  <option value="1">all</option>
+                                  <option value="2">Gadgets</option>
+                                  <option value="3">computer</option>
+                                  <option value="4">Antique</option>
+                                  <option value="5">Phone</option>
+                                  <option value="6">misc</option>
+                                </span>
+                              </select>
+                            </span>
+                            
+                          <!--copied code-->
+                          <br><br>
                                 <div class="row row-offcanvas row-offcanvas-right">
                                   <div class="col-xs-12 col-sm-9 col-sm-push-3">
                                   <div class="jumbotron">
                                       <h1>Auction Products</h1>
                                       <p>This are product in ongoing auction.</p>
+
+
+
                                     </div>
                                     <div class="row" id="products-list">
                                       
@@ -70,7 +107,10 @@
 
                     
                       <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-            
+                      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    
                       <script src = "{% static 'productpage/js/index.js' %}"></script>
                       
                      

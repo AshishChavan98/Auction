@@ -63,7 +63,7 @@ class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = (django_filters.rest_framework.DjangoFilterBackend,)
-    filter_fields = ('id','itemname','owner', 'status','buyer')
+    filter_fields = ('id','itemname','owner', 'status','buyer','category')
 
 
 

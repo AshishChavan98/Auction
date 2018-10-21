@@ -153,9 +153,9 @@ function printResult()
     {
           
 
-         $("#contents").append('Item Name:'+data[key].itemname+'<div>Description:'+data[key].description+'</div><div>Initial bid :'+data[key].initialbid+'</div><div>'+data[key].createddate+'</div><div>Buyer:'+data[key].buyer+'</div><div>Final Bid : '+data[key].bid+'</div>');
+         $("#contents").append('Item Name:'+data[key].itemname+'<div>Description:'+data[key].description+'</div><div>Initial bid :'+data[key].initialbid+'</div><div>'+data[key].createddate+'</div><div>Buyer:'+data[key].buyer+'</div><div>Final Bid : '+data[key].bid+'</div><hr>');
 
-$('#imageblock').append('<img class="img-fluid justify-content-center" style="padding:3px" src="'+data[0].image+'">');
+$('#imageblock').append('<img class="img-fluid justify-content-center" style="padding:3px" src="'+data[key].image+'">');
     }
 }
         getproductinfo();

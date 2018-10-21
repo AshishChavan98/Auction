@@ -1,7 +1,7 @@
 $(document).ready(function(){
     var data;
 
-    //get all user information
+
     $.ajax({url: "/product/rest/users/?format=json", success: function(result){
         users= result;
         console.log(result);
@@ -116,11 +116,14 @@ $(document).ready(function(){
             refresh();
             if(data[0].length==0)
             {
+             alert("product was deleted by owner");
              window.location.replace("/product/");
+             
 
             }
             else if(data[0].status==1)
             {
+                alert("product was sold by owner");
              window.location.replace("/product/");
 
             }
@@ -204,15 +207,18 @@ $(document).ready(function(){
 
     function bidToProduct()
     {
-
-        var bid = $('#bidInput').val()
+        console.log("asdlfkjklasdfj");
+        var bid = $('#bidInput').val();
         console.log(bid);
+        console.log("asdf",data[0].bid);
+        console.log("bid : ",bid,"data[0].bid : ",data[0].bid);
         if(bid<data[0].initialbid)
         {
             alert("value of bid must be greater than initial bid");
         }
-        else if(bid<data[0].bid)
+        else if(bid<=data[0].bid)
         {
+            
             alert("value of your bid must be greater than current bid");
         }
         else{
@@ -249,7 +255,7 @@ $(document).ready(function(){
 
     getproductinfo();
 
-    //setInterval(getproductinfo, 3000);
+    setInterval(getproductinfo, 3000);
 
 
 });

@@ -46,7 +46,8 @@
                             <div class="col-sm-6">
                         <form>
                           {% csrf_token %}                       
-                           <input  id ="bidInput" type="text" class="form-control form-control">
+                           <input  id ="bidInput" type="number" class="form-control form-control">
+                           <!--   pattern= 0|[1-9]\d*   -->
                         </form>
 
                         </div>
