@@ -5,6 +5,15 @@ This is a auction site with backend as Django and JS,Jquery and Bootstrap for fr
 It makes use of rest-api api to communicate with server.
 It supports real time bidding.
 
+# Run Project 
+Download source code
+
+```
+pip install -r requirements.txt
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
 # Screenshot
 ## Landing Page
 ![Landing Page](https://github.com/AshishChavan98/auction/blob/master/screenshots/LandingPage.png)
