@@ -24,6 +24,6 @@ python manage.py runserver
 ## Product Page
 ![Landing Page](https://github.com/AshishChavan98/auction/blob/master/screenshots/productPage.png)
 
-# Requirements
+# Dependencies
 
-Requirements are given in [requirement.txt](requirement.txt)
+Dependencies are given in [requirement.txt](requirement.txt)
